@@ -40,6 +40,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import com.qualcomm.ftccommon.SoundPlayer;
+import org.firstinspires.ftc.robotcore.external.android.AndroidSoundPool;
+
+
 import java.util.Locale;
 
 
@@ -50,10 +54,16 @@ public class TeleOp2022 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     HardwareMap2022 robot = new HardwareMap2022();
 
+    private AndroidSoundPool androidSoundPool;
+
+
     @Override
     public void runOpMode() {
 
         robot.init(hardwareMap);
+
+        androidSoundPool = new AndroidSoundPool();
+
 
         double x;
         double y;
@@ -116,6 +126,8 @@ public class TeleOp2022 extends LinearOpMode {
             pattern = RevBlinkinLedDriver.BlinkinPattern.RED;
             robot.blinkinLedDriver.setPattern(pattern);
         }
+
+        androidSoundPool.initialize(SoundPlayer.getInstance());
 
         waitForStart();
 
@@ -302,10 +314,12 @@ public class TeleOp2022 extends LinearOpMode {
             if(gamepad2.left_bumper){
                 robot.intakeServo1.setPosition(-.5);
                 robot.intakeServo2.setPosition(.5);
+                androidSoundPool.play("Mr.D");
             }
             else if (gamepad2.right_bumper){
                 robot.intakeServo1.setPosition(.5);
                 robot.intakeServo2.setPosition(-.5);
+                androidSoundPool.play("LBJ");
             }
             else{
 
@@ -317,6 +331,9 @@ public class TeleOp2022 extends LinearOpMode {
 
                 pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_OCEAN_PALETTE;
                 robot.blinkinLedDriver.setPattern(pattern);
+
+
+
             }
             else{
                 robot.carouselMotor.setPower(0);
