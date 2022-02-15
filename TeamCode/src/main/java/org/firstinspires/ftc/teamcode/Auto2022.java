@@ -28,6 +28,7 @@ package org.firstinspires.ftc.teamcode;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -257,7 +258,6 @@ public class Auto2022 extends LinearOpMode {
 
             webcam.stopRecordingPipeline();
             webcam.stopStreaming();
-
 
             sleep(startDelay);
 

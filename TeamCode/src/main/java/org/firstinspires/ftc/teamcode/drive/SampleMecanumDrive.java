@@ -26,6 +26,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
@@ -114,7 +115,11 @@ public class SampleMecanumDrive extends MecanumDrive {
         // and the placement of the dot/orientation from https://docs.revrobotics.com/rev-control-system/control-system-overview/dimensions#imu-location
         //
         // For example, if +Y in this diagram faces downwards, you would use AxisDirection.NEG_Y.
-        // BNO055IMUUtil.remapZAxis(imu, AxisDirection.NEG_Y);
+        //BNO055IMUUtil.remapZAxis(imu, AxisDirection.NEG_Y);
+
+        //BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN); -- Graham wants to try this?
+        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.XYZ, AxesSigns.NPN); -- try this?
+        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.ZYX, AxesSigns.NPN); -- try this first?
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");

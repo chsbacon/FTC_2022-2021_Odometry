@@ -46,6 +46,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.util.AxesSigns;
+import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 
 
 public class HardwareMap2022
@@ -206,6 +208,12 @@ public class HardwareMap2022
         // and named "imu"
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
+
+        //BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
+        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.XYZ, AxesSigns.NPN);
+
+
+
 
 
 
