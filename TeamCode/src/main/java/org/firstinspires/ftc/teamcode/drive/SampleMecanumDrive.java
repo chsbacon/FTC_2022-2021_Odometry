@@ -30,6 +30,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
+import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 
 import java.util.ArrayList;
@@ -117,9 +118,15 @@ public class SampleMecanumDrive extends MecanumDrive {
         // For example, if +Y in this diagram faces downwards, you would use AxisDirection.NEG_Y.
         //BNO055IMUUtil.remapZAxis(imu, AxisDirection.NEG_Y);
 
-        //BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN); -- Graham wants to try this?
+
         //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.XYZ, AxesSigns.NPN); -- try this?
-        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.ZYX, AxesSigns.NPN); -- try this first?
+        //^ from https://github.com/Alumineers7571-ftc/2019-2020/blob/master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auto/roadrunner/SampleMecanumDriveREVOptimized.java
+        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.XZY, AxesSigns.NPN); -- try this if others don't work?
+
+        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.YZX, AxesSigns.NPN); -- try this first
+
+        //ZYX is default; and how we wrote in HardwareMap2022
+
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
