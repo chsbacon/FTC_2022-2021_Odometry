@@ -66,8 +66,8 @@ public class HardwareMap2022
 
     public DcMotor spintakeMotor = null;
 
-    public CRServo intakeServo1 = null;
-    public CRServo intakeServo2 = null;
+    public Servo intakeServo1 = null;
+    public Servo intakeServo2 = null;
 
     public Servo dropServo = null;
     public Servo capServo = null;
@@ -140,8 +140,8 @@ public class HardwareMap2022
         downColor = hwMap.get(ColorSensor.class, "colD"); //i2c
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin"); //servo
 
-        intakeServo1 = hwMap.get(CRServo.class,"IS1");
-        intakeServo2 = hwMap.get(CRServo.class,"IS2");
+        intakeServo1 = hwMap.get(Servo.class,"IS1");
+        intakeServo2 = hwMap.get(Servo.class,"IS2");
 
         dropServo = hwMap.get(Servo.class,"DS");
         capServo = hwMap.get(Servo.class,"capS");
@@ -169,6 +169,9 @@ public class HardwareMap2022
 
         dropServo.setPosition(1);
         capServo.setPosition(-1);
+
+        intakeServo1.setPosition(0);
+        intakeServo2.setPosition(0);
 
         //Set Modes -----------------------------------------
 
@@ -1530,7 +1533,7 @@ public void spintakeStop(){
 
 
 
-
+/*
     public void lowerIntake(){
         ElapsedTime  lowerTime = new ElapsedTime();
 
@@ -1559,6 +1562,18 @@ public void spintakeStop(){
         intakeServo1.setPower(0);
         intakeServo2.setPower(0);
 
+    }
+
+ */
+
+    public void lowerIntake(){
+        intakeServo1.setPosition(-.5);
+        intakeServo2.setPosition(.5);
+
+    }
+    public void raiseIntake(){
+        intakeServo1.setPosition(.5);
+        intakeServo2.setPosition(-.5);
     }
 
     void spinCarouselMotor(double carouselDirection){

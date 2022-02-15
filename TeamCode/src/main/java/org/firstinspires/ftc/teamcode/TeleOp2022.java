@@ -300,17 +300,15 @@ public class TeleOp2022 extends LinearOpMode {
             //GAMEPAD 2 ___________________________________________________________________________
             //intake servo
             if(gamepad2.left_bumper){
-                robot.intakeServo1.setPower(-1);
-                robot.intakeServo2.setPower(1);
+                robot.intakeServo1.setPosition(-.5);
+                robot.intakeServo2.setPosition(.5);
             }
             else if (gamepad2.right_bumper){
-                robot.intakeServo1.setPower(1);
-                robot.intakeServo2.setPower(-1);
-
+                robot.intakeServo1.setPosition(.5);
+                robot.intakeServo2.setPosition(-.5);
             }
             else{
-                robot.intakeServo1.setPower(0);
-                robot.intakeServo2.setPower(0);
+
             }
 
             if(gamepad2.y){
