@@ -314,16 +314,12 @@ public class TeleOp2022 extends LinearOpMode {
             if(gamepad2.left_bumper){
                 robot.intakeServo1.setPosition(-.5);
                 robot.intakeServo2.setPosition(.5);
-                androidSoundPool.play("Mr.D");
             }
             else if (gamepad2.right_bumper){
-                robot.intakeServo1.setPosition(.5);
-                robot.intakeServo2.setPosition(-.5);
-                androidSoundPool.play("LBJ");
+                robot.intakeServo1.setPosition(1);
+                robot.intakeServo2.setPosition(-1);
             }
-            else{
 
-            }
 
             if(gamepad2.y){
                 //robot.carouselMotor.setPower(-.25);
