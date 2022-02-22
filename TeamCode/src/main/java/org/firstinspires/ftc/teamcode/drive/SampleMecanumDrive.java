@@ -119,9 +119,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         //BNO055IMUUtil.remapZAxis(imu, AxisDirection.NEG_Y);
 
 
-        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.XYZ, AxesSigns.NPN); -- try this?
-        //^ from https://github.com/Alumineers7571-ftc/2019-2020/blob/master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auto/roadrunner/SampleMecanumDriveREVOptimized.java
-        //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.XZY, AxesSigns.NPN); -- try this if others don't work?
+
 
         //BNO055IMUUtil.swapThenFlipAxes(imu,AxesOrder.YZX, AxesSigns.NPN); -- try this first
 

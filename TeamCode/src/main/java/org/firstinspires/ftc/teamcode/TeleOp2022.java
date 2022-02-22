@@ -82,6 +82,8 @@ public class TeleOp2022 extends LinearOpMode {
         boolean liftMotorMovingDown;
         boolean liftMotorMovingUp;
 
+        float intakeServoPos = 0;
+
         RevBlinkinLedDriver blinkinLedDriver;
         RevBlinkinLedDriver.BlinkinPattern pattern;
 
@@ -311,6 +313,8 @@ public class TeleOp2022 extends LinearOpMode {
 
             //GAMEPAD 2 ___________________________________________________________________________
             //intake servo
+
+
             if(gamepad2.left_bumper){
                 robot.intakeServo1.setPosition(-.5);
                 robot.intakeServo2.setPosition(.5);
@@ -319,6 +323,32 @@ public class TeleOp2022 extends LinearOpMode {
                 robot.intakeServo1.setPosition(1);
                 robot.intakeServo2.setPosition(-1);
             }
+
+
+/*
+            telemetry.addData("Pos: ",intakeServoPos);
+            if(Math.abs(intakeServoPos) > 1){
+                intakeServoPos = 0;
+            }
+
+            if(gamepad2.left_bumper){
+                sleep(250);
+                intakeServoPos += .1;
+                robot.intakeServo1.setPosition(intakeServoPos);
+                robot.intakeServo2.setPosition(intakeServoPos);
+
+            }
+            else if(gamepad2.right_bumper) {
+                sleep(250);
+                intakeServoPos -= .1;
+                robot.intakeServo1.setPosition(intakeServoPos);
+                robot.intakeServo2.setPosition(intakeServoPos);
+            }
+            else{
+                robot.intakeServo1.setPosition(intakeServoPos);
+                robot.intakeServo2.setPosition(intakeServoPos);
+            }
+*/
 
 
             if(gamepad2.y){
