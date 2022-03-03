@@ -15,6 +15,7 @@ public class testLinear extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+        waitForStart();
         // We want to start the bot at x: 10, y: -8, heading: 90 degrees
         Pose2d startPose = new Pose2d(10, 63, Math.toRadians(-90));
 
