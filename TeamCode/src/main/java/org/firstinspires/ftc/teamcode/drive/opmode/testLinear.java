@@ -10,10 +10,18 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
 public class testLinear extends LinearOpMode {
+    public static double shippingHubX = 10;
+    public static double shippingHubY = 32;
+    public static double shippingHubAngle1 = 45;
+
 
     public void runOpMode() throws InterruptedException {
 
+
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+
+
 
         waitForStart();
         // We want to start the bot at x: 10, y: -8, heading: 90 degrees
@@ -22,7 +30,7 @@ public class testLinear extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory traj1 = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-5,43.5,Math.toRadians(70)))
+                .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle1)))
                 .build();
         drive.followTrajectory(traj1);
     }
