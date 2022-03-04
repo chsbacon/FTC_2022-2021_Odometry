@@ -37,18 +37,19 @@ public class testLinear extends LinearOpMode {
 
         drive.setPoseEstimate(startPose);
 
-        Trajectory traj1 = drive.trajectoryBuilder(startPose)
+        Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle1)))
                 .build();
-        drive.followTrajectory(traj1);
-        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+        drive.followTrajectory(startTOshippingHub);
+
+        Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
                 .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
                 .build();
-        drive.followTrajectory(traj2);
+        drive.followTrajectory(shippingHubTOstartReturn);
 
-        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
+        Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
                 .lineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)))
                 .build();
-        drive.followTrajectory(traj3);
+        drive.followTrajectory(startReturnTOwarehouse);
     }
 }
