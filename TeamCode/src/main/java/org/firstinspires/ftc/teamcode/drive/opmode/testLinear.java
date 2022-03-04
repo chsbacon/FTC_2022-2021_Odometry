@@ -14,6 +14,14 @@ public class testLinear extends LinearOpMode {
     public static double shippingHubY = 32;
     public static double shippingHubAngle1 = 45;
 
+    public static double startReturnX = 10;
+    public static double startReturnY = 59;
+    public static double startReturnAngle = 0;
+
+    public static double warehouseX = 45;
+    public static double warehouseY = 59;
+    public static double warehouseAngle = 0;
+
 
     public void runOpMode() throws InterruptedException {
 
@@ -33,5 +41,14 @@ public class testLinear extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle1)))
                 .build();
         drive.followTrajectory(traj1);
+        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
+                .build();
+        drive.followTrajectory(traj2);
+
+        Trajectory traj3 = drive.trajectoryBuilder(traj2.end())
+                .lineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)))
+                .build();
+        drive.followTrajectory(traj3);
     }
 }
