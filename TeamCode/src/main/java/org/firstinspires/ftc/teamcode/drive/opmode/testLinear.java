@@ -27,7 +27,6 @@ public class testLinear extends LinearOpMode {
     public static double warehouseY = 61;
     public static double warehouseAngle = 0;
 
-
     public void runOpMode() throws InterruptedException {
 
 
@@ -54,9 +53,6 @@ public class testLinear extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)))
                 .build();
 
-
-
-
         Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
                 .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
                 .build();
@@ -68,18 +64,27 @@ public class testLinear extends LinearOpMode {
 
 
         drive.followTrajectory(startTOshippingHub);
+        sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
+        sleep(500);
+
 
         drive.followTrajectory(warehouseTOstartReturn);
         drive.followTrajectory(startReturnTOshippingHub);
+        sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
+        sleep(500);
+
+
 
         drive.followTrajectory(warehouseTOstartReturn);
         drive.followTrajectory(startReturnTOshippingHub);
+        sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
+
 
 
     }
