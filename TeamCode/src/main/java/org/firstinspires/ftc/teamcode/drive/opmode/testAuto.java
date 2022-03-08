@@ -9,22 +9,22 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
-public class testLinear extends LinearOpMode {
+public class testAuto extends LinearOpMode {
 
     public static double initialX = 10;
     public static double initalY = 63;
     public static double initialAngle = -90;
 
-    public static double shippingHubX = 0;//10;
-    public static double shippingHubY = 42;//33;
-    public static double shippingHubAngle = 90;//45;
+    public static double shippingHubX = 10;
+    public static double shippingHubY = 33;
+    public static double shippingHubAngle = 45;
 
     public static double startReturnX = 15;
-    public static double startReturnY = 61;
+    public static double startReturnY = 59;
     public static double startReturnAngle = 0;
 
     public static double warehouseX = 48;
-    public static double warehouseY = 61;
+    public static double warehouseY = 59;
     public static double warehouseAngle = 0;
 
 
@@ -76,10 +76,9 @@ public class testLinear extends LinearOpMode {
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
 
-        drive.followTrajectory(warehouseTOstartReturn);
-        drive.followTrajectory(startReturnTOshippingHub);
-        drive.followTrajectory(shippingHubTOstartReturn);
-        drive.followTrajectory(startReturnTOwarehouse);
+
+
+
 
 
     }
