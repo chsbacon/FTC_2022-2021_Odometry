@@ -22,6 +22,7 @@ public class testLinear extends LinearOpMode {
     public static double startReturnX = 15;
     public static double startReturnY = 61;
     public static double startReturnAngle = 0;
+    public static double testTanget = 0;
 
     public static double warehouseX = 48;
     public static double warehouseY = 61;
@@ -46,15 +47,15 @@ public class testLinear extends LinearOpMode {
                 .build();
 
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
-                .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
+                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),testTanget)
                 .build();
 
         Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)))
+                .splineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)),testTanget)
                 .build();
 
         Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
-                .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
+                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),testTanget)
                 .build();
 
         Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
