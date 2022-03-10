@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,24 +10,25 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
-public class testAuto extends LinearOpMode {
+public class testBlueWarehouse extends LinearOpMode {
 
     public static double initialX = 10;
     public static double initalY = 63;
-    public static double initialAngle = -90;
+    public static double initialAngle = 90;
 
-    public static double shippingHubX = 10;
-    public static double shippingHubY = 33;
-    public static double shippingHubAngle = 45;
+    public static double shippingHubX = -5;
+    public static double shippingHubY = 35;
+    public static double shippingHubAngle = 60;
 
-    public static double startReturnX = 15;
+    public static double startReturnX = 5;
     public static double startReturnY = 59;
     public static double startReturnAngle = 0;
+    public static double startReturnTanget = 45;
 
-    public static double warehouseX = 48;
+    public static double warehouseX = 40;
     public static double warehouseY = 59;
     public static double warehouseAngle = 0;
-
+    public static double warehouseTangent = 0;
 
     public void runOpMode() throws InterruptedException {
 
@@ -47,18 +49,15 @@ public class testAuto extends LinearOpMode {
                 .build();
 
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
-                .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
+                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
                 .build();
 
         Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)))
+                .lineToConstantHeading(new Vector2d(warehouseX,warehouseY))
                 .build();
 
-
-
-
         Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
-                .lineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)))
+                .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
                 .build();
 
         Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
@@ -68,16 +67,26 @@ public class testAuto extends LinearOpMode {
 
 
         drive.followTrajectory(startTOshippingHub);
+        sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
+        sleep(500);
+
 
         drive.followTrajectory(warehouseTOstartReturn);
         drive.followTrajectory(startReturnTOshippingHub);
+        sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
+        sleep(500);
 
 
 
+        drive.followTrajectory(warehouseTOstartReturn);
+        drive.followTrajectory(startReturnTOshippingHub);
+        sleep(500);
+        drive.followTrajectory(shippingHubTOstartReturn);
+        drive.followTrajectory(startReturnTOwarehouse);
 
 
 
