@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -13,20 +14,21 @@ public class testLinear extends LinearOpMode {
 
     public static double initialX = 10;
     public static double initalY = 63;
-    public static double initialAngle = -90;
+    public static double initialAngle = 90;
 
-    public static double shippingHubX = 0;//10;
-    public static double shippingHubY = 42;//33;
-    public static double shippingHubAngle = 90;//45;
+    public static double shippingHubX = -5;
+    public static double shippingHubY = 35;
+    public static double shippingHubAngle = 60;
 
-    public static double startReturnX = 15;
-    public static double startReturnY = 61;
+    public static double startReturnX = 5;
+    public static double startReturnY = 59;
     public static double startReturnAngle = 0;
-    public static double testTanget = 0;
+    public static double startReturnTanget = 45;
 
-    public static double warehouseX = 48;
-    public static double warehouseY = 61;
+    public static double warehouseX = 40;
+    public static double warehouseY = 59;
     public static double warehouseAngle = 0;
+    public static double warehouseTangent = 0;
 
     public void runOpMode() throws InterruptedException {
 
@@ -47,15 +49,15 @@ public class testLinear extends LinearOpMode {
                 .build();
 
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
-                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),testTanget)
+                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
                 .build();
 
         Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .splineToLinearHeading(new Pose2d(warehouseX,warehouseY,Math.toRadians(warehouseAngle)),testTanget)
+                .lineToConstantHeading(new Vector2d(warehouseX,warehouseY))
                 .build();
 
         Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
-                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),testTanget)
+                .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
                 .build();
 
         Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
