@@ -20,13 +20,13 @@ public class testBlueWarehouse extends LinearOpMode {
     public static double shippingHubY = 35;
     public static double shippingHubAngle = 60;
 
-    public static double startReturnX = 5;
-    public static double startReturnY = 59;
+    public static double startReturnX = 2.5;
+    public static double startReturnY = 60;
     public static double startReturnAngle = 0;
     public static double startReturnTanget = 45;
 
     public static double warehouseX = 40;
-    public static double warehouseY = 59;
+    public static double warehouseY = 60;
     public static double warehouseAngle = 0;
     public static double warehouseTangent = 0;
 
