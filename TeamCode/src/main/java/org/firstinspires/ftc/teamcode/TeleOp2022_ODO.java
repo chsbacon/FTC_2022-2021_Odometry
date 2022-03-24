@@ -230,27 +230,29 @@ public class TeleOp2022_ODO extends LinearOpMode {
                 liftMotor.setPower(0);
             }
 
-
+/*
             int MIDHEIGHT = -2500/4; //2500 for 40 //2500/2 for 20
-            if(gamepad1.y){
+            if(gamepad1.WHATEVER){
+
                 liftMotor.setTargetPosition(MIDHEIGHT);
 
                 liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                liftMotor.setPower(.25);
+                liftMotor.setPower(.2);
 
                 while(liftMotor.isBusy()){
                     //addData("Target: ", myTicks);
                     //telemetry.addData("tickPos: ",liftMotor.getCurrentPosition());
                     //telemetry.update();
+
                 }
 
                 liftMotor.setPower(0);
                 liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
+*/
 
 
-            /*
             if(gamepad1.y){
                 dropServo.setPosition(0);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
@@ -260,7 +262,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
                 dropServo.setPosition(1);
             }
 
-             */
+
 
 /*
             if(gamepad1.b){

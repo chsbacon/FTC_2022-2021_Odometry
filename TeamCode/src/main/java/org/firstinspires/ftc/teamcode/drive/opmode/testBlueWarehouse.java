@@ -62,7 +62,20 @@ public class testBlueWarehouse extends LinearOpMode {
 
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
+                .addTemporalMarker(.1, () -> {
+                    int MIDHEIGHT = -2500/4;
+                    drive.liftMotor.setTargetPosition(MIDHEIGHT);
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    drive.liftMotor.setPower(.2);
+                })
+                .addTemporalMarker(1, () -> {
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    drive.liftMotor.setPower(0);
+                })
                 .build();
+
+
+
 
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
                 .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
@@ -107,4 +120,6 @@ public class testBlueWarehouse extends LinearOpMode {
 
 
     }
+
+
 }
