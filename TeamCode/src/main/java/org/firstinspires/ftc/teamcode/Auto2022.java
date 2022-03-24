@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -44,9 +45,8 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-
-@Autonomous(name="Auto22", group="Opmode")
-//@Disabled
+@Disabled
+@Autonomous(name="OldAuto22", group="Opmode")
 public class Auto2022 extends LinearOpMode {
 
     private OpenCvCamera webcam;

@@ -35,6 +35,21 @@ public class testBlueWarehouse extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+/*
+
+       example Markers
+                .addTemporalMarker(2, () -> {
+                    // This marker runs two seconds into the trajectory
+
+                    // Flip Down Intake
+                })
+                .addSpatialMarker(new Vector2d(20, 40), () -> {
+                    // This marker runs at the point that gets
+                    // closest to the (20, 20) coordinate
+
+                    //Raise Lift Motor
+                })
+*/
 
 
 
