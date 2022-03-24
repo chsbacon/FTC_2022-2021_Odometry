@@ -135,10 +135,10 @@ public class HardwareMap2022
         // Define and Initialize -----------------------------------------
 
 
-        frontLeftMotor  = hwMap.get(DcMotor.class, "FLM"); //H1P0
-        frontRightMotor  = hwMap.get(DcMotor.class, "FRM"); //H1P1
-        backLeftMotor = hwMap.get(DcMotor.class, "BLM"); //H1P2
-        backRightMotor = hwMap.get(DcMotor.class, "BRM"); //H1P3
+        frontLeftMotor  = hwMap.get(DcMotor.class, "leftFront"); //H1P0
+        frontRightMotor  = hwMap.get(DcMotor.class, "rightFront"); //H1P1
+        backLeftMotor = hwMap.get(DcMotor.class, "leftRear"); //H1P2
+        backRightMotor = hwMap.get(DcMotor.class, "rightRear"); //H1P3
 
         downColor = hwMap.get(ColorSensor.class, "colD"); //i2c
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin"); //servo

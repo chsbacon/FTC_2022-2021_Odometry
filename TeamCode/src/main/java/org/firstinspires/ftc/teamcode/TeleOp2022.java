@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -42,13 +43,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import com.qualcomm.ftccommon.SoundPlayer;
 import org.firstinspires.ftc.robotcore.external.android.AndroidSoundPool;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 
 import java.util.Locale;
 
+@Disabled
+@TeleOp(name="OLD_TeleOp 2022", group="Linear Opmode")
 
-@TeleOp(name="TeleOp 2022", group="Linear Opmode")
-//@Disabled
 public class TeleOp2022 extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -157,69 +159,14 @@ public class TeleOp2022 extends LinearOpMode {
             backLeft = +y + x + r;
             frontRight = -y - x + r;
             backRight = -y + x + r;
+            /*
             robot.frontLeftMotor.setPower(frontLeft/fastSlow);
             robot.frontRightMotor.setPower(frontRight/fastSlow);
             robot.backLeftMotor.setPower(backLeft/fastSlow);
             robot.backRightMotor.setPower(backRight/fastSlow);
-
-            /*
-            //increment up and down (works but not using)
-            if(gamepad1.left_bumper){  //Lift motor up
-                liftMotorTicksTele -= 1000;
-                robot.moveLiftMotor(liftMotorTicksTele,1);
-                telemetry.addData("LiftMotor Pos: ", liftMotorTicksTele);
-                telemetry.update();
-            }
-            if(gamepad1.right_bumper){ //Lift motor down
-                    liftMotorTicksTele += 1000;
-                    robot.moveLiftMotor(liftMotorTicksTele, 1);
-                    telemetry.addData("LiftMotor Pos: ", liftMotorTicksTele);
-                    telemetry.update();
-            }
             */
 
-/*
-            //glide up and down
-            if(gamepad1.left_bumper){
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                robot.liftMotor.setPower(1);
-            }
-            else if (gamepad1.right_bumper ){
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                robot.liftMotor.setPower(-1);
-            }
-            else{
-                robot.liftMotor.setPower(0);
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-*/
-
-//glide up and down 2
-/*
-            if(gamepad1.left_bumper){
-                if(robot.liftMotor.getCurrentPosition() >= 0){
-                    robot.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    robot.liftMotor.setPower(-1);
-                }
-                else{
-
-                }
-            }
-            else if (gamepad1.right_bumper){
-                if(robot.liftMotor.getCurrentPosition() <= 4750){
-                    robot.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    robot.liftMotor.setPower(1);
-                }
-                else{
-
-                }
-            }
-            else{
-                robot.liftMotor.setPower(0);
-                robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-*/
-// glide up and down 3 (not working)
+// glide up and down 3
             if(gamepad1.left_bumper) {
                 robot.liftMotor.setPower(1);
                 liftMotorMovingDown = false;
@@ -316,12 +263,17 @@ public class TeleOp2022 extends LinearOpMode {
 
 
             if(gamepad2.left_bumper){
+                robot.spintakeMotor.setPower(0);
                 robot.intakeServo1.setPosition(-.5);
                 robot.intakeServo2.setPosition(.5);
             }
             else if (gamepad2.right_bumper){
                 robot.intakeServo1.setPosition(1);
                 robot.intakeServo2.setPosition(-1);
+                robot.spintakeMotor.setPower(0);
+            }
+            else{
+
             }
 
 

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Autonomous(group = "drive")
 public class testBlueCarousel extends LinearOpMode {
 
-    public static double initialX = -10;
+    public static double initialX = -12;
     public static double initalY = 63;
     public static double initialAngle = 90;
 
