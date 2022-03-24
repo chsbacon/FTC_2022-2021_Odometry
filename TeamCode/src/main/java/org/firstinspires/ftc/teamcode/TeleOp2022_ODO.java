@@ -68,8 +68,6 @@ public class TeleOp2022_ODO extends LinearOpMode {
     public DcMotor spintakeMotor = null;
     public DcMotor carouselMotor = null;
 
-
-
     public Servo dropServo = null;
     public Servo intakeServo1 = null;
     public Servo intakeServo2 = null;
@@ -94,8 +92,6 @@ public class TeleOp2022_ODO extends LinearOpMode {
         liftMotor = hardwareMap.get(DcMotor.class,"LM");
         spintakeMotor = hardwareMap.get(DcMotor.class,"SM"); //H2P0
         carouselMotor = hardwareMap.get(DcMotor.class,"CML");
-
-
 
         dropServo = hardwareMap.get(Servo.class,"DS");
         intakeServo1 = hardwareMap.get(Servo.class,"IS1");
@@ -205,14 +201,14 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 // glide up and down 3
             if(gamepad1.left_bumper) {
-                liftMotor.setPower(1);
+                liftMotor.setPower(-1);
                 liftMotorMovingDown = false;
                 liftMotorMovingUp = true;
                 pattern = RevBlinkinLedDriver.BlinkinPattern.BLUE;
                 //blinkinLedDriver.setPattern(pattern);
             }
             else if (gamepad1.right_bumper) {
-                liftMotor.setPower(-1);
+                liftMotor.setPower(1);
                 liftMotorMovingDown = true;
                 liftMotorMovingUp = false;
                 pattern = RevBlinkinLedDriver.BlinkinPattern.BLUE;
@@ -227,17 +223,34 @@ public class TeleOp2022_ODO extends LinearOpMode {
                 liftMotorMovingUp = false;
             }
 
-            if((liftMotorMovingDown == true) && liftMotor.getCurrentPosition() < 0){
+            if((liftMotorMovingDown == true) && liftMotor.getCurrentPosition() > 0){
                 liftMotor.setPower(0);
             }
-            if((liftMotorMovingUp == true) && Math.abs(liftMotor.getCurrentPosition()) > 4500/2){
+            if((liftMotorMovingUp == true) && Math.abs(liftMotor.getCurrentPosition()) < -4500/2){
                 liftMotor.setPower(0);
             }
 
 
+            int MIDHEIGHT = -2500/4; //2500 for 40 //2500/2 for 20
+            if(gamepad1.y){
+                liftMotor.setTargetPosition(MIDHEIGHT);
+
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                liftMotor.setPower(.25);
+
+                while(liftMotor.isBusy()){
+                    //addData("Target: ", myTicks);
+                    //telemetry.addData("tickPos: ",liftMotor.getCurrentPosition());
+                    //telemetry.update();
+                }
+
+                liftMotor.setPower(0);
+                liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
 
 
-
+            /*
             if(gamepad1.y){
                 dropServo.setPosition(0);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
@@ -246,6 +259,8 @@ public class TeleOp2022_ODO extends LinearOpMode {
             else{
                 dropServo.setPosition(1);
             }
+
+             */
 
 /*
             if(gamepad1.b){

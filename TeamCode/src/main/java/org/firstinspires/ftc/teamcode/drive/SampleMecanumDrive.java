@@ -24,6 +24,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
@@ -84,7 +85,21 @@ public class SampleMecanumDrive extends MecanumDrive {
     private BNO055IMU imu;
     private VoltageSensor batteryVoltageSensor;
 
+
+
+    //---
+    public DcMotor liftMotor = null;
+    public DcMotor spintakeMotor = null;
+    public DcMotor carouselMotor = null;
+
+    public Servo dropServo = null;
+    public Servo intakeServo1 = null;
+    public Servo intakeServo2 = null;
+    //---
+
+
     public SampleMecanumDrive(HardwareMap hardwareMap) {
+
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
@@ -135,6 +150,27 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         //ZYX is default; and how we wrote in HardwareMap2022
 
+        //---
+        liftMotor = hardwareMap.get(DcMotor.class,"LM");
+        spintakeMotor = hardwareMap.get(DcMotor.class,"SM"); //H2P0
+        carouselMotor = hardwareMap.get(DcMotor.class,"CML");
+
+        dropServo = hardwareMap.get(Servo.class,"DS");
+        intakeServo1 = hardwareMap.get(Servo.class,"IS1");
+        intakeServo2 = hardwareMap.get(Servo.class,"IS2");
+        //---
+
+        //---
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spintakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        carouselMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        dropServo.setPosition(1);
+        intakeServo1.setPosition(0);
+        intakeServo2.setPosition(0);
+        //---
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
