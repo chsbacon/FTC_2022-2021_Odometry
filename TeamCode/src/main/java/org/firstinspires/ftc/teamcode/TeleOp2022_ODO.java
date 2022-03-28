@@ -103,9 +103,9 @@ public class TeleOp2022_ODO extends LinearOpMode {
         spintakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         carouselMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        dropServo.setPosition(1);
-        intakeServo1.setPosition(0);
-        intakeServo2.setPosition(0);
+        //dropServo.setPosition(1);
+        //intakeServo1.setPosition(0);
+        //intakeServo2.setPosition(0);
 
 
 
@@ -289,20 +289,24 @@ public class TeleOp2022_ODO extends LinearOpMode {
             //GAMEPAD 2 ___________________________________________________________________________
             //intake servo
 
+            intakeServo1.scaleRange(-1,1);
+            intakeServo2.scaleRange(-1,1);
 
             if(gamepad2.left_bumper){
                 spintakeMotor.setPower(0);
-                intakeServo1.setPosition(-.5);
-                intakeServo2.setPosition(.5);
+                intakeServo1.setPosition(1); //vertical
+                intakeServo2.setPosition(0); //vertical
             }
-            else if (gamepad2.right_bumper){
-                intakeServo1.setPosition(1);
-                intakeServo2.setPosition(-1);
+            else if (gamepad2.right_bumper){ //up
+                intakeServo1.setPosition(.5);
+                intakeServo2.setPosition(.5);
                 spintakeMotor.setPower(0);
             }
-            else{
-                
-            }
+            telemetry.addData("intakeServo1 Pos", intakeServo1.getPosition());
+            telemetry.addData("intakeServo2 Pos", intakeServo2.getPosition());
+            telemetry.update();
+
+
 
 
 
