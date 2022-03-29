@@ -294,12 +294,16 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
             if(gamepad2.left_bumper){
                 spintakeMotor.setPower(0);
-                intakeServo1.setPosition(1); //vertical
-                intakeServo2.setPosition(0); //vertical
+                intakeServo1.setPosition(1); //ground
+                intakeServo2.setPosition(0); //ground
             }
-            else if (gamepad2.right_bumper){ //up
-                intakeServo1.setPosition(.5);
-                intakeServo2.setPosition(.5);
+            else if (gamepad2.right_bumper){
+                //intakeServo1.setPosition(.5); //vertical
+                //intakeServo2.setPosition(.5); //vertical
+
+                intakeServo1.setPosition(.4); //
+                intakeServo2.setPosition(.6); //
+
                 spintakeMotor.setPower(0);
             }
             telemetry.addData("intakeServo1 Pos", intakeServo1.getPosition());
