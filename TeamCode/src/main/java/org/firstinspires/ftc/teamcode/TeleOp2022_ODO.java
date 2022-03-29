@@ -296,8 +296,8 @@ public class TeleOp2022_ODO extends LinearOpMode {
             intakeServo1.setPosition(1); //ground
             intakeServo2.setPosition(0); //ground
 
-            //intakeServo1.setPosition(.5); //vertical
-            //intakeServo2.setPosition(.5); //vertical
+            //intakeServo1.setPosition(.6); //vertical
+            //intakeServo2.setPosition(.4); //vertical
 
             intakeServo1.setPosition(.4); //dump
             intakeServo2.setPosition(.6); //dump

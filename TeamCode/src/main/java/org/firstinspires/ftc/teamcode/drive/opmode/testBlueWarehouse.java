@@ -34,7 +34,7 @@ public class testBlueWarehouse extends LinearOpMode {
     public static double startReturnAngle = 0;
     public static double startReturnTanget = 45;
 
-    public static double warehouseX = 40;
+    public static double warehouseX = 25;
     public static double warehouseY = 60;
     public static double warehouseAngle = 0;
     public static double warehouseTangent = 0;
@@ -134,6 +134,9 @@ public class testBlueWarehouse extends LinearOpMode {
         }
 
         waitForStart();
+
+        webcam.stopRecordingPipeline();
+        webcam.stopStreaming();
         // We want to start the bot at x: 10, y: -8, heading: 90 degrees
         Pose2d startPose = new Pose2d(initialX, initalY, Math.toRadians(initialAngle));
         int LM_Height = LMtargetPosition;
@@ -142,8 +145,8 @@ public class testBlueWarehouse extends LinearOpMode {
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.5); //vertical
-                    drive.intakeServo2.setPosition(.5); //vertical
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
                 })
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(LM_Height);
@@ -158,18 +161,52 @@ public class testBlueWarehouse extends LinearOpMode {
 
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
                 .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
+                })
+                .addTemporalMarker(.1, () -> {
+                    drive.liftMotor.setTargetPosition(0);
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    drive.liftMotor.setPower(.5);
+                })
+                .addTemporalMarker(2, () -> {
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    drive.liftMotor.setPower(0);
+                })
                 .build();
 
         Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
                 .lineToConstantHeading(new Vector2d(warehouseX,warehouseY))
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(1); //ground
+                    drive.intakeServo2.setPosition(0); //ground
+                })
                 .build();
 
         Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
                 .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
+                 .addTemporalMarker(.1, () -> {
+                     drive.intakeServo1.setPosition(.4); //dump
+                     drive.intakeServo2.setPosition(.6); //dump
+        })
                 .build();
 
         Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
+                })
+                .addTemporalMarker(.1, () -> {
+                    drive.liftMotor.setTargetPosition(LM_Height);
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    drive.liftMotor.setPower(.5);
+                })
+                .addTemporalMarker(3, () -> {
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    drive.liftMotor.setPower(0);
+                })
                 .build();
 
 
