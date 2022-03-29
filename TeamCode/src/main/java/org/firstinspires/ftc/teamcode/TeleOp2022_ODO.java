@@ -292,17 +292,26 @@ public class TeleOp2022_ODO extends LinearOpMode {
             intakeServo1.scaleRange(-1,1);
             intakeServo2.scaleRange(-1,1);
 
+/* intakeServo Position List
+            intakeServo1.setPosition(1); //ground
+            intakeServo2.setPosition(0); //ground
+
+            //intakeServo1.setPosition(.5); //vertical
+            //intakeServo2.setPosition(.5); //vertical
+
+            intakeServo1.setPosition(.4); //dump
+            intakeServo2.setPosition(.6); //dump
+  */
+
             if(gamepad2.left_bumper){
                 spintakeMotor.setPower(0);
                 intakeServo1.setPosition(1); //ground
                 intakeServo2.setPosition(0); //ground
             }
             else if (gamepad2.right_bumper){
-                //intakeServo1.setPosition(.5); //vertical
-                //intakeServo2.setPosition(.5); //vertical
 
-                intakeServo1.setPosition(.4); //
-                intakeServo2.setPosition(.6); //
+                intakeServo1.setPosition(.4); //dump
+                intakeServo2.setPosition(.6); //dump
 
                 spintakeMotor.setPower(0);
             }

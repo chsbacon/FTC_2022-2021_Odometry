@@ -172,8 +172,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         carouselMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         dropServo.setPosition(1);
-        //intakeServo1.setPosition(1);
-        //intakeServo2.setPosition(-1);
+        intakeServo1.setPosition(.4);
+        intakeServo2.setPosition(.6);
         //---
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");

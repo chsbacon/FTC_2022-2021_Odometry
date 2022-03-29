@@ -90,9 +90,10 @@ public class testBlueWarehouse extends LinearOpMode {
         });
 
 
-        int TOPHEIGHT = 4750/2; //4750 for 40
-        int MIDHEIGHT = 2500/2; //2500 for 40
+        int TOPHEIGHT = -4750/2; //4750 for 40
+        int MIDHEIGHT = -2500/2; //2500 for 40
         int LOWHEIGHT = 0;
+        int LMtargetPosition = 0;
         while (!isStarted())
         {
 
@@ -111,6 +112,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 if(myPipeline.getRectMidpointX() > 1300){
                     placeHeight = 3;
                     telemetry.addData("placeHeight: ", placeHeight);
+                    LMtargetPosition = TOPHEIGHT;
                     telemetry.update();
 
                 }
@@ -118,12 +120,14 @@ public class testBlueWarehouse extends LinearOpMode {
                     placeHeight = 2;
                     telemetry.addData("placeHeight: ", placeHeight);
                     telemetry.update();
+                    LMtargetPosition = MIDHEIGHT;
 
                 }
                 else {
                     placeHeight = 1;
                     telemetry.addData("placeHeight: ", placeHeight);
                     telemetry.update();
+                    LMtargetPosition = LOWHEIGHT;
 
                 }
             }
@@ -132,27 +136,21 @@ public class testBlueWarehouse extends LinearOpMode {
         waitForStart();
         // We want to start the bot at x: 10, y: -8, heading: 90 degrees
         Pose2d startPose = new Pose2d(initialX, initalY, Math.toRadians(initialAngle));
-
+        int LM_Height = LMtargetPosition;
         drive.setPoseEstimate(startPose);
-
 
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
-
-
-                    if (placeHeight == 3) {
-                        drive.liftMotor.setTargetPosition(TOPHEIGHT);
-                    } else if (placeHeight == 2) {
-                        drive.liftMotor.setTargetPosition(MIDHEIGHT);
-                    } else if (placeHeight == 1) {
-                        drive.liftMotor.setTargetPosition(LOWHEIGHT);
-                    } else {
-                    }
-                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.2);
+                    drive.intakeServo1.setPosition(.5); //vertical
+                    drive.intakeServo2.setPosition(.5); //vertical
                 })
-                .addTemporalMarker(1, () -> {
+                .addTemporalMarker(.1, () -> {
+                    drive.liftMotor.setTargetPosition(LM_Height);
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    drive.liftMotor.setPower(.5);
+                })
+                .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     drive.liftMotor.setPower(0);
                 })
