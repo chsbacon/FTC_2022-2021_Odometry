@@ -145,7 +145,6 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 
 
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -192,12 +191,12 @@ public class TeleOp2022_ODO extends LinearOpMode {
             backLeft = +y + x + r;
             frontRight = -y - x + r;
             backRight = -y + x + r;
-            /*
+
             frontLeftMotor.setPower(frontLeft/fastSlow);
             frontRightMotor.setPower(frontRight/fastSlow);
             backLeftMotor.setPower(backLeft/fastSlow);
             backRightMotor.setPower(backRight/fastSlow);
-            */
+
 
 // glide up and down 3
             if(gamepad1.left_bumper) {
@@ -259,7 +258,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
                 //blinkinLedDriver.setPattern(pattern);
             }
             else{
-                dropServo.setPosition(1);
+                dropServo.setPosition(.65);
             }
 
 
@@ -342,7 +341,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
             //spitake out items
             if(gamepad2.dpad_down){
-                spintakeMotor.setPower(.75);
+                spintakeMotor.setPower(-.75);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.RED;
                 //blinkinLedDriver.setPattern(pattern);
                 while(gamepad2.dpad_down){
@@ -353,7 +352,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
             //spitake in items
             if(gamepad2.dpad_left){
-                spintakeMotor.setPower(-.75);
+                spintakeMotor.setPower(.75);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
                 //blinkinLedDriver.setPattern(pattern);
                 while(gamepad2.dpad_down){
@@ -365,7 +364,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
             //spintake items in toggle
             if(gamepad2.dpad_up && spintakeMotorState == 0){
                     spintakeMotorState = 1;
-                    spintakeMotor.setPower(-.75);
+                    spintakeMotor.setPower(.75);
                 }
             else if(gamepad2.dpad_up && spintakeMotorState == 1){
                     spintakeMotor.setPower(0);

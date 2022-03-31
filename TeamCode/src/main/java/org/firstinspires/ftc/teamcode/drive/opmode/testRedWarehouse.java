@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,23 +18,24 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Config
 @Autonomous(group = "drive")
-public class testBlueWarehouse extends LinearOpMode {
+public class testRedWarehouse extends LinearOpMode {
 
     public static double initialX = 10;
-    public static double initalY = 63;
-    public static double initialAngle = 90;
+    public static double initalY = -63;
+    public static double initialAngle = -90;
 
     public static double shippingHubX = -5;
-    public static double shippingHubY = 37;
-    public static double shippingHubAngle = 60;
+    public static double shippingHubY = -44;
+    public static double shippingHubAngle = -60;
+    public static double shippingHubTangent = 45;
 
-    public static double startReturnX = 2.5;
-    public static double startReturnY = 60;
+    public static double startReturnX = 10;
+    public static double startReturnY = -72;
     public static double startReturnAngle = 0;
-    public static double startReturnTanget = 45;
+    public static double startReturnTanget = -45;
 
-    public static double warehouseX = 33;
-    public static double warehouseY = 60;
+    public static double warehouseX = 40;
+    public static double warehouseY = -72;
     public static double warehouseAngle = 0;
     public static double warehouseTangent = 0;
 
@@ -142,7 +141,7 @@ public class testBlueWarehouse extends LinearOpMode {
         Pose2d startPose = new Pose2d(initialX, initalY, Math.toRadians(initialAngle));
         int LM_Height = LMtargetPosition;
         drive.setPoseEstimate(startPose);
-
+/*
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
@@ -159,7 +158,24 @@ public class testBlueWarehouse extends LinearOpMode {
                     drive.liftMotor.setPower(0);
                 })
                 .build();
+*/
 
+        Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
+                .splineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),shippingHubTangent)
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
+                })
+                .addTemporalMarker(.1, () -> {
+                    drive.liftMotor.setTargetPosition(LM_Height);
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    drive.liftMotor.setPower(.5);
+                })
+                .addTemporalMarker(3, () -> {
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    drive.liftMotor.setPower(0);
+                })
+                .build();
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
                 .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
                 .addTemporalMarker(.1, () -> {
@@ -187,7 +203,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 .build();
 
         Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(30,warehouseY))
+                .lineToConstantHeading(new Vector2d(37,warehouseY))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground
                     drive.intakeServo2.setPosition(0); //ground
@@ -226,7 +242,7 @@ public class testBlueWarehouse extends LinearOpMode {
         sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
-        sleep(500);
+        sleep(250);
 
 
         drive.followTrajectory(warehouseTOstartReturn);
@@ -234,7 +250,7 @@ public class testBlueWarehouse extends LinearOpMode {
         sleep(500);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
-        sleep(500);
+        sleep(250);
 
 
 
