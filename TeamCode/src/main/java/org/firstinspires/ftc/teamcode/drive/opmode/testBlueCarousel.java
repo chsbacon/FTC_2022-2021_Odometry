@@ -24,22 +24,22 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 public class testBlueCarousel extends LinearOpMode {
 
 
-    public static double initialX = -12;
+    public static double initialX = -36;
     public static double initalY = 63;
     public static double initialAngle = 90;
 
-    public static double shippingHubX = -15;
+    public static double shippingHubX = -33;
     public static double shippingHubY = 37;
-    public static double shippingHubAngle = -135;
+    public static double shippingHubAngle = 155;
 
-    public static double carouselX = -52;
-    public static double carouselY = -52;
-    public static double carouselAngle = 135;
+    public static double carouselX = -65;
+    public static double carouselY = 61;
+    public static double carouselAngle = 165;
     public static double carouselTanget = 0;
 
-    public static double parkX = -52;
-    public static double parkY = -52;
-    public static double parkAngle = 135;
+    public static double parkX = -65;
+    public static double parkY = 42;
+    public static double parkAngle = -179;
 
     private OpenCvCamera webcam;
 
@@ -144,11 +144,8 @@ public class testBlueCarousel extends LinearOpMode {
         int LM_Height = LMtargetPosition;
         drive.setPoseEstimate(startPose);
 
-        Trajectory startTOCarousel = drive.trajectoryBuilder(startPose)
-                .splineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),carouselTanget)
-                .build();
 
-        Trajectory carouselTOShippingHub = drive.trajectoryBuilder(startTOCarousel.end())
+        Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
@@ -165,8 +162,8 @@ public class testBlueCarousel extends LinearOpMode {
                 })
                 .build();
 
-        Trajectory shippingHubTOPark = drive.trajectoryBuilder(carouselTOShippingHub.end())
-                .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
+        Trajectory shippingHubTOCarousel = drive.trajectoryBuilder(startTOshippingHub.end())
+                .lineToLinearHeading(new Pose2d(carouselX,carouselY,Math.toRadians(carouselAngle)))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -176,28 +173,37 @@ public class testBlueCarousel extends LinearOpMode {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     drive.liftMotor.setPower(.5);
                 })
-                .addTemporalMarker(2, () -> {
+                .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     drive.liftMotor.setPower(0);
+                })
+                .build();
+
+        Trajectory carouselTOPark = drive.trajectoryBuilder(shippingHubTOCarousel.end())
+                .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)))
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
                 })
                 .build();
 
 
 
 
-
-        drive.followTrajectory(startTOCarousel);
+        drive.followTrajectory(startTOshippingHub);
         sleep(500);
+        drive.followTrajectory(shippingHubTOCarousel);
 
-        drive.carouselMotor.setPower(.5);
+        drive.carouselMotor.setPower(-.2);
         ElapsedTime runtime = new ElapsedTime();
-        while (runtime.milliseconds() < 1000){
+        while ((runtime.milliseconds() < 2000) && opModeIsActive()){
 
         }
         drive.carouselMotor.setPower(0);
 
-        drive.followTrajectory(carouselTOShippingHub);
-        drive.followTrajectory(shippingHubTOPark);
+        drive.followTrajectory(carouselTOPark);
+
+
 
 
 
