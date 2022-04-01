@@ -33,11 +33,11 @@ public class testBlueCarousel extends LinearOpMode {
     public static double shippingHubAngle = 155;
 
     public static double carouselX = -65;
-    public static double carouselY = 61;
-    public static double carouselAngle = 165;
+    public static double carouselY = 61.5;
+    public static double carouselAngle = 179;
     public static double carouselTanget = 0;
 
-    public static double parkX = -65;
+    public static double parkX = -68;
     public static double parkY = 42;
     public static double parkAngle = -179;
 
