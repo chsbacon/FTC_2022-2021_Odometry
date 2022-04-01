@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.ContourPipeline;
@@ -18,26 +18,25 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Config
 @Autonomous(group = "drive")
-public class testRedWarehouse extends LinearOpMode {
+public class testRedCarousel extends LinearOpMode {
 
-    public static double initialX = 10;
+
+    public static double initialX = -36;
     public static double initalY = -63;
     public static double initialAngle = -90;
 
-    public static double shippingHubX = -10;
-    public static double shippingHubY = -44;
-    public static double shippingHubAngle = -90;
-    public static double shippingHubTangent = 45;
+    public static double shippingHubX = -33;
+    public static double shippingHubY = -37;
+    public static double shippingHubAngle = -155;
 
-    public static double startReturnX = 10;
-    public static double startReturnY = -72;
-    public static double startReturnAngle = 0;
-    public static double startReturnTanget = -45;
+    public static double carouselX = -65;
+    public static double carouselY = -61.5;
+    public static double carouselAngle = -179;
+    public static double carouselTanget = 0;
 
-    public static double warehouseX = 40;
-    public static double warehouseY = -72;
-    public static double warehouseAngle = 0;
-    public static double warehouseTangent = 0;
+    public static double parkX = -68;
+    public static double parkY = -42;
+    public static double parkAngle = 179;
 
     private OpenCvCamera webcam;
 
@@ -142,6 +141,7 @@ public class testRedWarehouse extends LinearOpMode {
         int LM_Height = LMtargetPosition;
         drive.setPoseEstimate(startPose);
 
+
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
@@ -159,9 +159,8 @@ public class testRedWarehouse extends LinearOpMode {
                 })
                 .build();
 
-
-        Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
-                .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
+        Trajectory shippingHubTOCarousel = drive.trajectoryBuilder(startTOshippingHub.end())
+                .lineToLinearHeading(new Pose2d(carouselX,carouselY,Math.toRadians(carouselAngle)))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -171,78 +170,38 @@ public class testRedWarehouse extends LinearOpMode {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     drive.liftMotor.setPower(.5);
                 })
-                .addTemporalMarker(2, () -> {
-                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    drive.liftMotor.setPower(0);
-                })
-                .build();
-
-        Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(warehouseX,warehouseY))
-                .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(1); //ground
-                    drive.intakeServo2.setPosition(0); //ground
-                    drive.spintakeMotor.setPower(.75);
-                })
-                .build();
-
-        Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(37,warehouseY))
-                .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(1); //ground
-                    drive.intakeServo2.setPosition(0); //ground
-                })
-                .build();
-
-        Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
-                .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
-                 .addTemporalMarker(.1, () -> {
-                     drive.spintakeMotor.setPower(0);
-                     drive.intakeServo1.setPosition(.4); //dump
-                     drive.intakeServo2.setPosition(.6); //dump
-        })
-                .build();
-
-        Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
-                .splineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),shippingHubTangent)
-                .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.6); //vertical
-                    drive.intakeServo2.setPosition(.4); //vertical
-                })
-                .addTemporalMarker(.1, () -> {
-                    drive.liftMotor.setTargetPosition(LM_Height);
-                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
-                })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                     drive.liftMotor.setPower(0);
                 })
                 .build();
 
+        Trajectory carouselTOPark = drive.trajectoryBuilder(shippingHubTOCarousel.end())
+                .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)))
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
+                })
+                .build();
+
+
 
 
         drive.followTrajectory(startTOshippingHub);
         sleep(500);
-        drive.followTrajectory(shippingHubTOstartReturn);
-        drive.followTrajectory(startReturnTOwarehouse);
-        sleep(250);
+        drive.followTrajectory(shippingHubTOCarousel);
+
+        drive.carouselMotor.setPower(-.2);
+        ElapsedTime runtime = new ElapsedTime();
+        while ((runtime.milliseconds() < 2000) && opModeIsActive()){
+
+        }
+        drive.carouselMotor.setPower(0);
+
+        drive.followTrajectory(carouselTOPark);
 
 
-        drive.followTrajectory(warehouseTOstartReturn);
-        drive.followTrajectory(startReturnTOshippingHub);
-        sleep(500);
-        drive.followTrajectory(shippingHubTOstartReturn);
-        drive.followTrajectory(startReturnTOwarehouse);
-        sleep(250);
 
-
-
-        drive.followTrajectory(warehouseTOstartReturn);
-        drive.followTrajectory(startReturnTOshippingHub);
-        sleep(500);
-        drive.followTrajectory(shippingHubTOstartReturn);
-        drive.followTrajectory(startReturnTOwarehouseFinal);
 
 
 
@@ -279,6 +238,7 @@ public class testRedWarehouse extends LinearOpMode {
         if(value > max){ value = max; }
         return value;
     }
+
 
 
 }
