@@ -38,7 +38,7 @@ public class testRedCarousel extends LinearOpMode {
     public static double parkY = -42;
     public static double parkAngle = 179;
 
-    public  static int dumpSleep = 1000;
+    public  static int dumpSleep = 500;
 
 
 
@@ -191,7 +191,7 @@ public class testRedCarousel extends LinearOpMode {
 
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .2;
+        double DS_DumpPos = .8;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

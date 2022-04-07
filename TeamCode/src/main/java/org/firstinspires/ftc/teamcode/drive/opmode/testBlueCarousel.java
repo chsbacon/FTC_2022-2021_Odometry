@@ -43,7 +43,7 @@ public class testBlueCarousel extends LinearOpMode {
     public static double parkAngle = -179;
 
     public static double carouselApproachVelMultiplier = .5;
-    public  static int dumpSleep = 1000;
+    public  static int dumpSleep = 500;
 
 
     private OpenCvCamera webcam;
@@ -200,7 +200,7 @@ public class testBlueCarousel extends LinearOpMode {
 
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .2;
+        double DS_DumpPos = .8;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

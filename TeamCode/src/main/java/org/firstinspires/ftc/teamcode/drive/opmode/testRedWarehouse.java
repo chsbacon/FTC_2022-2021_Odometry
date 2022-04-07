@@ -24,23 +24,23 @@ public class testRedWarehouse extends LinearOpMode {
     public static double initalY = -63;
     public static double initialAngle = -90;
 
-    public static double shippingHubX = -5;
-    public static double shippingHubY = -45;
-    public static double shippingHubAngle = -70;
+    public static double shippingHubX = -6;
+    public static double shippingHubY = -46;
+    public static double shippingHubAngle = -65;
     public static double shippingHubTangent = -135;
 
     public static double startReturnX = 10;
-    public static double startReturnY = -72;
-    public static double startReturnAngle = 0;
+    public static double startReturnY = -73;
+    public static double startReturnAngle = -2;
     public static double startReturnTanget = -45;
 
-    public static double warehouseX = 40;
-    public static double warehouseY = -72;
+    public static double warehouseX = 42;
+    public static double warehouseY = -73;
     public static double warehouseAngle = 0;
     public static double warehouseTangent = 0;
 
-    public  static int dumpSleep = 1000;
-    public static int TOPHEIGHT = -4750/2; //4750 for 40
+    public  static int dumpSleep = 500;
+    public static int TOPHEIGHT = -3600; //4750 for 40
     public static int MIDHEIGHT = -2500/2; //2500 for 40
     public static int LOWHEIGHT = -750;
 
@@ -190,7 +190,7 @@ public class testRedWarehouse extends LinearOpMode {
                 .build();
 
         Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(37,warehouseY))
+                .lineToConstantHeading(new Vector2d(39,warehouseY))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground
                     drive.intakeServo2.setPosition(0); //ground
@@ -224,7 +224,7 @@ public class testRedWarehouse extends LinearOpMode {
                 .build();
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .2;
+        double DS_DumpPos = .8;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

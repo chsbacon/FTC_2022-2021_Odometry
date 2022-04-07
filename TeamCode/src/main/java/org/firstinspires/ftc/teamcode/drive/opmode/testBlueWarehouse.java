@@ -30,20 +30,22 @@ public class testBlueWarehouse extends LinearOpMode {
     public static double shippingHubY = 37;
     public static double shippingHubAngle = 60;
 
-    public static double startReturnX = 1;
-    public static double startReturnY = 62;
-    public static double startReturnAngle = 0;
+    public static double startReturnX = 0;
+    public static double startReturnY = 62.5;
+    public static double startReturnAngle = 2;
     public static double startReturnTanget = 45;
 
     public static double warehouseX = 33;
-    public static double warehouseY = 62;
-    public static double warehouseAngle = 0;
+    public static double warehouseY = 63;
+    public static double warehouseAngle = 2;
     public static double warehouseTangent = 0;
 
-    public  static int dumpSleep = 1000;
-    public static int TOPHEIGHT = -4750/2; //4750 for 40
+
+    public  static int dumpSleep = 500;
+    public static int TOPHEIGHT = -3600; //4750 for 40
     public static int MIDHEIGHT = -2500/2; //2500 for 40
     public static int LOWHEIGHT = -750;
+
 
 
     private OpenCvCamera webcam;
@@ -189,12 +191,15 @@ public class testBlueWarehouse extends LinearOpMode {
                 })
                 .build();
 
+
         Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
                 .lineToConstantHeading(new Vector2d(30,warehouseY))
+                /*
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground
                     drive.intakeServo2.setPosition(0); //ground
                 })
+                 */
                 .build();
 
         Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
@@ -224,7 +229,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 .build();
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .2;
+        double DS_DumpPos = .8;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);
@@ -233,6 +238,7 @@ public class testBlueWarehouse extends LinearOpMode {
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
         sleep(500);
+
 
 
         drive.followTrajectory(warehouseTOstartReturn);
