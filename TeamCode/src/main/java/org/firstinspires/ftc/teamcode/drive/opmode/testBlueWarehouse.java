@@ -30,7 +30,7 @@ public class testBlueWarehouse extends LinearOpMode {
     public static double shippingHubY = 37;
     public static double shippingHubAngle = 60;
 
-    public static double startReturnX = 2.5;
+    public static double startReturnX = 1;
     public static double startReturnY = 62;
     public static double startReturnAngle = 0;
     public static double startReturnTanget = 45;
@@ -155,7 +155,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(LM_Height);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -172,7 +172,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(0);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(2, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -215,7 +215,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(TOPHEIGHT);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
