@@ -25,7 +25,7 @@ public class testRedWarehouse extends LinearOpMode {
     public static double initialAngle = -90;
 
     public static double shippingHubX = -6;
-    public static double shippingHubY = -46;
+    public static double shippingHubY = -43;
     public static double shippingHubAngle = -65;
     public static double shippingHubTangent = -135;
 
@@ -40,8 +40,8 @@ public class testRedWarehouse extends LinearOpMode {
     public static double warehouseTangent = 0;
 
     public  static int dumpSleep = 500;
-    public static int TOPHEIGHT = -3600; //4750 for 40
-    public static int MIDHEIGHT = -2500/2; //2500 for 40
+    public static int TOPHEIGHT = -3500; //4750 for 40
+    public static int MIDHEIGHT = -1750; //2500 for 40
     public static int LOWHEIGHT = -750;
 
     private OpenCvCamera webcam;
@@ -148,8 +148,8 @@ public class testRedWarehouse extends LinearOpMode {
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.6); //vertical
-                    drive.intakeServo2.setPosition(.4); //vertical
+                    drive.intakeServo1.setPosition(.55); //vertical
+                    drive.intakeServo2.setPosition(.45); //vertical
                 })
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(LM_Height);
@@ -166,8 +166,8 @@ public class testRedWarehouse extends LinearOpMode {
         Trajectory shippingHubTOstartReturn = drive.trajectoryBuilder(startTOshippingHub.end())
                 .splineToLinearHeading(new Pose2d(startReturnX,startReturnY,Math.toRadians(startReturnAngle)),startReturnTanget)
                 .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.6); //vertical
-                    drive.intakeServo2.setPosition(.4); //vertical
+                    drive.intakeServo1.setPosition(.55); //vertical
+                    drive.intakeServo2.setPosition(.45); //vertical
                 })
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(0);
@@ -209,8 +209,8 @@ public class testRedWarehouse extends LinearOpMode {
         Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
                 .splineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),shippingHubTangent)
                 .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.6); //vertical
-                    drive.intakeServo2.setPosition(.4); //vertical
+                    drive.intakeServo1.setPosition(.55); //vertical
+                    drive.intakeServo2.setPosition(.45); //vertical
                 })
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(TOPHEIGHT);
@@ -224,7 +224,7 @@ public class testRedWarehouse extends LinearOpMode {
                 .build();
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .8;
+        double DS_DumpPos = .6;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

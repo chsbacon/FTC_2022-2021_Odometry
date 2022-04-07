@@ -43,7 +43,7 @@ public class testBlueWarehouse extends LinearOpMode {
 
     public  static int dumpSleep = 500;
     public static int TOPHEIGHT = -3600; //4750 for 40
-    public static int MIDHEIGHT = -2500/2; //2500 for 40
+    public static int MIDHEIGHT = -1750; //2500 for 40
     public static int LOWHEIGHT = -750;
 
 
@@ -229,7 +229,7 @@ public class testBlueWarehouse extends LinearOpMode {
                 .build();
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .8;
+        double DS_DumpPos = .6;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

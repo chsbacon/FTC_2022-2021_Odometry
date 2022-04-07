@@ -200,7 +200,7 @@ public class testBlueCarousel extends LinearOpMode {
 
 
         double DS_RecPos = 1;
-        double DS_DumpPos = .8;
+        double DS_DumpPos = .6;
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);
