@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.ContourPipeline;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -33,13 +34,15 @@ public class testBlueCarousel extends LinearOpMode {
     public static double shippingHubAngle = 155;
 
     public static double carouselX = -65;
-    public static double carouselY = 61.5;
+    public static double carouselY = 62;
     public static double carouselAngle = 179;
     public static double carouselTanget = 0;
 
     public static double parkX = -68;
     public static double parkY = 42;
     public static double parkAngle = -179;
+
+    public static double carouselApproachVelMultiplier = .5;
 
     private OpenCvCamera webcam;
 
@@ -163,7 +166,10 @@ public class testBlueCarousel extends LinearOpMode {
                 .build();
 
         Trajectory shippingHubTOCarousel = drive.trajectoryBuilder(startTOshippingHub.end())
-                .lineToLinearHeading(new Pose2d(carouselX,carouselY,Math.toRadians(carouselAngle)))
+                .lineToLinearHeading(new Pose2d(carouselX,carouselY,Math.toRadians(carouselAngle)),
+                        SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL * carouselApproachVelMultiplier, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                )
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -180,7 +186,9 @@ public class testBlueCarousel extends LinearOpMode {
                 .build();
 
         Trajectory carouselTOPark = drive.trajectoryBuilder(shippingHubTOCarousel.end())
-                .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)))
+                .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)),
+                        SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -196,7 +204,7 @@ public class testBlueCarousel extends LinearOpMode {
 
         drive.carouselMotor.setPower(-.2);
         ElapsedTime runtime = new ElapsedTime();
-        while ((runtime.milliseconds() < 2000) && opModeIsActive()){
+        while ((runtime.milliseconds() < 4000) && opModeIsActive()){
 
         }
         drive.carouselMotor.setPower(0);

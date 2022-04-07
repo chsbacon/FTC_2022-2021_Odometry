@@ -30,7 +30,7 @@ public class testBlueWarehouse extends LinearOpMode {
     public static double shippingHubY = 37;
     public static double shippingHubAngle = 60;
 
-    public static double startReturnX = 1;
+    public static double startReturnX = 2.5;
     public static double startReturnY = 62;
     public static double startReturnAngle = 0;
     public static double startReturnTanget = 45;

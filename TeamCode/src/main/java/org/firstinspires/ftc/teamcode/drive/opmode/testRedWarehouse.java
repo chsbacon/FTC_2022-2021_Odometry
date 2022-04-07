@@ -24,10 +24,10 @@ public class testRedWarehouse extends LinearOpMode {
     public static double initalY = -63;
     public static double initialAngle = -90;
 
-    public static double shippingHubX = -10;
-    public static double shippingHubY = -44;
-    public static double shippingHubAngle = -90;
-    public static double shippingHubTangent = 45;
+    public static double shippingHubX = -5;
+    public static double shippingHubY = -45;
+    public static double shippingHubAngle = -70;
+    public static double shippingHubTangent = -135;
 
     public static double startReturnX = 10;
     public static double startReturnY = -72;
