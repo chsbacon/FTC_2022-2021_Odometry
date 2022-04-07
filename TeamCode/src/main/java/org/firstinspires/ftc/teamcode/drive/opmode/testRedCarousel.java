@@ -38,6 +38,10 @@ public class testRedCarousel extends LinearOpMode {
     public static double parkY = -42;
     public static double parkAngle = 179;
 
+    public  static int dumpSleep = 1000;
+
+
+
     private OpenCvCamera webcam;
 
     private static final int CAMERA_WIDTH  = 1920; // width  of wanted camera resolution
@@ -91,7 +95,7 @@ public class testRedCarousel extends LinearOpMode {
 
         int TOPHEIGHT = -4750/2; //4750 for 40
         int MIDHEIGHT = -2500/2; //2500 for 40
-        int LOWHEIGHT = 0;
+        int LOWHEIGHT = -750;
         int LMtargetPosition = 0;
         while (!isStarted())
         {
@@ -186,9 +190,13 @@ public class testRedCarousel extends LinearOpMode {
 
 
 
+        double DS_RecPos = 1;
+        double DS_DumpPos = .2;
 
         drive.followTrajectory(startTOshippingHub);
-        sleep(500);
+        drive.dropServo.setPosition(DS_DumpPos);
+        sleep(dumpSleep);
+        drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOCarousel);
 
         drive.carouselMotor.setPower(-.2);

@@ -39,6 +39,11 @@ public class testRedWarehouse extends LinearOpMode {
     public static double warehouseAngle = 0;
     public static double warehouseTangent = 0;
 
+    public  static int dumpSleep = 1000;
+    public static int TOPHEIGHT = -4750/2; //4750 for 40
+    public static int MIDHEIGHT = -2500/2; //2500 for 40
+    public static int LOWHEIGHT = -750;
+
     private OpenCvCamera webcam;
 
     private static final int CAMERA_WIDTH  = 1920; // width  of wanted camera resolution
@@ -90,9 +95,7 @@ public class testRedWarehouse extends LinearOpMode {
         });
 
 
-        int TOPHEIGHT = -4750/2; //4750 for 40
-        int MIDHEIGHT = -2500/2; //2500 for 40
-        int LOWHEIGHT = 0;
+
         int LMtargetPosition = 0;
         while (!isStarted())
         {
@@ -210,7 +213,7 @@ public class testRedWarehouse extends LinearOpMode {
                     drive.intakeServo2.setPosition(.4); //vertical
                 })
                 .addTemporalMarker(.1, () -> {
-                    drive.liftMotor.setTargetPosition(LM_Height);
+                    drive.liftMotor.setTargetPosition(TOPHEIGHT);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     drive.liftMotor.setPower(.5);
                 })
@@ -220,10 +223,13 @@ public class testRedWarehouse extends LinearOpMode {
                 })
                 .build();
 
-
+        double DS_RecPos = 1;
+        double DS_DumpPos = .2;
 
         drive.followTrajectory(startTOshippingHub);
-        sleep(500);
+        drive.dropServo.setPosition(DS_DumpPos);
+        sleep(dumpSleep);
+        drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
         sleep(250);
@@ -231,7 +237,9 @@ public class testRedWarehouse extends LinearOpMode {
 
         drive.followTrajectory(warehouseTOstartReturn);
         drive.followTrajectory(startReturnTOshippingHub);
-        sleep(500);
+        drive.dropServo.setPosition(DS_DumpPos);
+        sleep(dumpSleep);
+        drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouse);
         sleep(250);
@@ -240,7 +248,9 @@ public class testRedWarehouse extends LinearOpMode {
 
         drive.followTrajectory(warehouseTOstartReturn);
         drive.followTrajectory(startReturnTOshippingHub);
-        sleep(500);
+        drive.dropServo.setPosition(DS_DumpPos);
+        sleep(dumpSleep);
+        drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOstartReturn);
         drive.followTrajectory(startReturnTOwarehouseFinal);
 
