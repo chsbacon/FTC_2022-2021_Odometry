@@ -25,7 +25,7 @@ public class testRedWarehouse extends LinearOpMode {
     public static double initialAngle = -90;
 
     public static double shippingHubX = -6;
-    public static double shippingHubY = -43;
+    public static double shippingHubY = -43.5;
     public static double shippingHubAngle = -65;
     public static double shippingHubTangent = -135;
 
@@ -39,9 +39,10 @@ public class testRedWarehouse extends LinearOpMode {
     public static double warehouseAngle = 0;
     public static double warehouseTangent = 0;
 
+
     public  static int dumpSleep = 500;
     public static int TOPHEIGHT = -3200; //4750 for 40
-    public static int MIDHEIGHT = -1500; //2500 for 40
+    public static int MIDHEIGHT = -1750; //2500 for 40
     public static int LOWHEIGHT = -650;
 
     private OpenCvCamera webcam;
@@ -180,7 +181,7 @@ public class testRedWarehouse extends LinearOpMode {
                 })
                 .build();
 
-        Trajectory startReturnTOwarehouse = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
+        Trajectory startReturnTOwarehouse1 = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
                 .lineToConstantHeading(new Vector2d(warehouseX,warehouseY))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground
@@ -188,6 +189,16 @@ public class testRedWarehouse extends LinearOpMode {
                     drive.spintakeMotor.setPower(.75);
                 })
                 .build();
+        Trajectory startReturnTOwarehouse2 = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
+                .lineToConstantHeading(new Vector2d(warehouseX+3,warehouseY))
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(1); //ground
+                    drive.intakeServo2.setPosition(0); //ground
+                    drive.spintakeMotor.setPower(.75);
+                })
+                .build();
+
+
 
         Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
                 .lineToConstantHeading(new Vector2d(39,warehouseY))
@@ -197,16 +208,46 @@ public class testRedWarehouse extends LinearOpMode {
                 })
                 .build();
 
-        Trajectory warehouseTOstartReturn = drive.trajectoryBuilder(startReturnTOwarehouse.end())
+        Trajectory warehouseTOstartReturn1 = drive.trajectoryBuilder(startReturnTOwarehouse1.end())
                 .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
                  .addTemporalMarker(.1, () -> {
-                     drive.spintakeMotor.setPower(0);
+                     drive.spintakeMotor.setPower(-.5);
                      drive.intakeServo1.setPosition(.4); //dump
                      drive.intakeServo2.setPosition(.6); //dump
         })
+                .addTemporalMarker(.5, () -> {
+                    drive.spintakeMotor.setPower(0);
+                })
+                .build();
+        Trajectory warehouseTOstartReturn2 = drive.trajectoryBuilder(startReturnTOwarehouse2.end())
+                .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
+                .addTemporalMarker(.1, () -> {
+                    drive.spintakeMotor.setPower(-.5);
+                    drive.intakeServo1.setPosition(.4); //dump
+                    drive.intakeServo2.setPosition(.6); //dump
+                })
+                .addTemporalMarker(.5, () -> {
+                    drive.spintakeMotor.setPower(0);
+                })
                 .build();
 
-        Trajectory startReturnTOshippingHub = drive.trajectoryBuilder(warehouseTOstartReturn.end())
+        Trajectory startReturnTOshippingHub1 = drive.trajectoryBuilder(warehouseTOstartReturn1.end())
+                .splineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),shippingHubTangent)
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.55); //vertical
+                    drive.intakeServo2.setPosition(.45); //vertical
+                })
+                .addTemporalMarker(.1, () -> {
+                    drive.liftMotor.setTargetPosition(TOPHEIGHT);
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    drive.liftMotor.setPower(.9);
+                })
+                .addTemporalMarker(3, () -> {
+                    drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    drive.liftMotor.setPower(0);
+                })
+                .build();
+        Trajectory startReturnTOshippingHub2 = drive.trajectoryBuilder(warehouseTOstartReturn2.end())
                 .splineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),shippingHubTangent)
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.55); //vertical
@@ -231,23 +272,23 @@ public class testRedWarehouse extends LinearOpMode {
         sleep(dumpSleep);
         drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOstartReturn);
-        drive.followTrajectory(startReturnTOwarehouse);
-        sleep(250);
+        drive.followTrajectory(startReturnTOwarehouse1);
+        //sleep(250);
 
 
-        drive.followTrajectory(warehouseTOstartReturn);
-        drive.followTrajectory(startReturnTOshippingHub);
+        drive.followTrajectory(warehouseTOstartReturn2);
+        drive.followTrajectory(startReturnTOshippingHub2);
         drive.dropServo.setPosition(DS_DumpPos);
         sleep(dumpSleep);
         drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOstartReturn);
-        drive.followTrajectory(startReturnTOwarehouse);
-        sleep(250);
+        drive.followTrajectory(startReturnTOwarehouse2);
+        //sleep(250);
 
 
 
-        drive.followTrajectory(warehouseTOstartReturn);
-        drive.followTrajectory(startReturnTOshippingHub);
+        drive.followTrajectory(warehouseTOstartReturn2);
+        drive.followTrajectory(startReturnTOshippingHub2);
         drive.dropServo.setPosition(DS_DumpPos);
         sleep(dumpSleep);
         drive.dropServo.setPosition(DS_RecPos);
