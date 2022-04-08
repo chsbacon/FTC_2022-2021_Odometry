@@ -28,21 +28,27 @@ public class testBlueCarousel extends LinearOpMode {
     public static double initialX = -36;
     public static double initalY = 63;
     public static double initialAngle = 90;
-
-    public static double shippingHubX = -33;
+/*
+    public static double shippingHubX = -34;
     public static double shippingHubY = 37;
     public static double shippingHubAngle = 155;
+*/
 
-    public static double carouselX = -65;
-    public static double carouselY = 62;
+    public static double shippingHubX = -18;
+    public static double shippingHubY = 41.6;
+    public static double shippingHubAngle = 110;
+    public static double shippingHubApproachVelMultiplier = .025;
+
+    public static double carouselX = -65.2;
+    public static double carouselY = 62.2;
     public static double carouselAngle = 179;
     public static double carouselTanget = 0;
 
-    public static double parkX = -68;
+    public static double parkX = -66;
     public static double parkY = 42;
     public static double parkAngle = -179;
 
-    public static double carouselApproachVelMultiplier = .5;
+    public static double carouselApproachVelMultiplier = .015;
     public  static int dumpSleep = 500;
 
 
@@ -99,7 +105,7 @@ public class testBlueCarousel extends LinearOpMode {
 
         int TOPHEIGHT = -3200; //4750 for 40
         int MIDHEIGHT = -1850; //2500 for 40
-        int LOWHEIGHT = -650;
+        int LOWHEIGHT = -750;
         int LMtargetPosition = 0;
         while (!isStarted())
         {
@@ -151,7 +157,9 @@ public class testBlueCarousel extends LinearOpMode {
 
 
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
+                .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)),
+                        SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL * shippingHubApproachVelMultiplier, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -201,6 +209,8 @@ public class testBlueCarousel extends LinearOpMode {
 
         double DS_RecPos = 1;
         double DS_DumpPos = .6;
+
+        sleep(5000);
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

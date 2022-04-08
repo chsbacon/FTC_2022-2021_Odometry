@@ -213,6 +213,8 @@ public class testRedCarousel extends LinearOpMode {
         double DS_RecPos = 1;
         double DS_DumpPos = .6;
 
+
+        sleep(5000);
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);
         sleep(dumpSleep);

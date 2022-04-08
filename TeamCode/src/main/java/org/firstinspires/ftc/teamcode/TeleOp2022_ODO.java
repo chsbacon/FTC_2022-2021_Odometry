@@ -363,11 +363,12 @@ public class TeleOp2022_ODO extends LinearOpMode {
             if(gamepad2.dpad_up && spintakeMotorState == 0){
                     spintakeMotorState = 1;
                     spintakeMotor.setPower(.75);
+                    sleep(250);
                 }
             else if(gamepad2.dpad_up && spintakeMotorState == 1){
                     spintakeMotor.setPower(0);
                     spintakeMotorState = 0;
-
+                    sleep(250);
                 }
             else{
 
