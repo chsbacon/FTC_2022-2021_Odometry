@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.ContourPipeline;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -25,20 +26,25 @@ public class testRedCarousel extends LinearOpMode {
     public static double initalY = -63;
     public static double initialAngle = -90;
 
-    public static double shippingHubX = -33;
-    public static double shippingHubY = -37;
+    public static double shippingHubX = -25;
+    public static double shippingHubY = -26;
     public static double shippingHubAngle = -155;
 
-    public static double carouselX = -48;
-    public static double carouselY = -48;
-    public static double carouselAngle = -0;
+    public static double wallX = -66;
+    public static double wallY = -40;
+    public static double wallAngle = -90;
+
+    public static double carouselX = -66;
+    public static double carouselY = -50;
+    public static double carouselAngle = -90;
     public static double carouselTanget = 0;
 
-    public static double parkX = -68;
-    public static double parkY = -42;
-    public static double parkAngle = 179;
+    public static double parkX = -66;
+    public static double parkY = -36;
+    public static double parkAngle = -90;
 
     public  static int dumpSleep = 500;
+    public static double carouselApproachVelMultiplier = .5;
 
 
 
@@ -163,8 +169,8 @@ public class testRedCarousel extends LinearOpMode {
                 })
                 .build();
 
-        Trajectory shippingHubTOCarousel = drive.trajectoryBuilder(startTOshippingHub.end())
-                .lineToLinearHeading(new Pose2d(carouselX,carouselY,Math.toRadians(carouselAngle)))
+        Trajectory shippingHubTOWall = drive.trajectoryBuilder(startTOshippingHub.end())
+                .lineToLinearHeading(new Pose2d(wallX,wallY,Math.toRadians(wallAngle)))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -180,8 +186,21 @@ public class testRedCarousel extends LinearOpMode {
                 })
                 .build();
 
-        Trajectory carouselTOPark = drive.trajectoryBuilder(shippingHubTOCarousel.end())
-                .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)))
+
+        Trajectory WallTOCarousel = drive.trajectoryBuilder(shippingHubTOWall.end())
+                .lineToLinearHeading(new Pose2d(carouselX,carouselY,Math.toRadians(carouselAngle)),
+                        SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL * carouselApproachVelMultiplier, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .addTemporalMarker(.1, () -> {
+                    drive.intakeServo1.setPosition(.6); //vertical
+                    drive.intakeServo2.setPosition(.4); //vertical
+                })
+                .build();
+
+        Trajectory carouselTOPark = drive.trajectoryBuilder(WallTOCarousel.end())
+                .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)),
+                        SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -197,7 +216,9 @@ public class testRedCarousel extends LinearOpMode {
         drive.dropServo.setPosition(DS_DumpPos);
         sleep(dumpSleep);
         drive.dropServo.setPosition(DS_RecPos);
-        drive.followTrajectory(shippingHubTOCarousel);
+        drive.followTrajectory(shippingHubTOWall);
+
+        drive.followTrajectory(WallTOCarousel);
 
         drive.carouselMotor.setPower(.2);
         ElapsedTime runtime = new ElapsedTime();

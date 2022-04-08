@@ -268,17 +268,12 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 /*
             if(gamepad1.b){
-                capServo.setPosition(-1);
+                capServo.setPosition(1);
                 telemetry.addData("ServoPos: ", capServo.getPosition());
                 telemetry.update();
             }
             else if(gamepad1.a){
-                capServo.setPosition(0);
-                telemetry.addData("ServoPos: ", capServo.getPosition());
-                telemetry.update();
-            }
-            else if(gamepad1.x){
-                capServo.setPosition(1);
+                capServo.setPosition(.5);
                 telemetry.addData("ServoPos: ", capServo.getPosition());
                 telemetry.update();
             }
