@@ -312,6 +312,13 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
                 spintakeMotor.setPower(0);
             }
+            else if (gamepad2.b){
+                sleep(250);
+                intakeServo1.setPosition(.6); //midway
+                intakeServo2.setPosition(.4); //midway
+
+                spintakeMotor.setPower(0);
+            }
             telemetry.addData("intakeServo1 Pos", intakeServo1.getPosition());
             telemetry.addData("intakeServo2 Pos", intakeServo2.getPosition());
             telemetry.update();
