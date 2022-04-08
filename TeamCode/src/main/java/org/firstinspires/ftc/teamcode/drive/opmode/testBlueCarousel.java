@@ -159,7 +159,7 @@ public class testBlueCarousel extends LinearOpMode {
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(LM_Height);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -179,7 +179,7 @@ public class testBlueCarousel extends LinearOpMode {
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(0);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -33,9 +33,10 @@ public class testRedCarousel extends LinearOpMode {
     public static double wallX = -66;
     public static double wallY = -40;
     public static double wallAngle = -90;
+    public static double wallTangent = -179;
 
     public static double carouselX = -66;
-    public static double carouselY = -50;
+    public static double carouselY = -55.5;
     public static double carouselAngle = -90;
     public static double carouselTanget = 0;
 
@@ -44,7 +45,7 @@ public class testRedCarousel extends LinearOpMode {
     public static double parkAngle = -90;
 
     public  static int dumpSleep = 500;
-    public static double carouselApproachVelMultiplier = .5;
+    public static double carouselApproachVelMultiplier = .004;
 
 
 
@@ -155,13 +156,13 @@ public class testRedCarousel extends LinearOpMode {
         Trajectory startTOshippingHub = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(shippingHubX,shippingHubY,Math.toRadians(shippingHubAngle)))
                 .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.6); //vertical
-                    drive.intakeServo2.setPosition(.4); //vertical
+                    drive.intakeServo1.setPosition(1); //ground
+                    drive.intakeServo2.setPosition(0); //ground
                 })
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(LM_Height);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -170,7 +171,7 @@ public class testRedCarousel extends LinearOpMode {
                 .build();
 
         Trajectory shippingHubTOWall = drive.trajectoryBuilder(startTOshippingHub.end())
-                .lineToLinearHeading(new Pose2d(wallX,wallY,Math.toRadians(wallAngle)))
+                .splineToLinearHeading(new Pose2d(wallX,wallY,Math.toRadians(wallAngle)),wallTangent)
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
@@ -178,7 +179,7 @@ public class testRedCarousel extends LinearOpMode {
                 .addTemporalMarker(.1, () -> {
                     drive.liftMotor.setTargetPosition(0);
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    drive.liftMotor.setPower(.5);
+                    drive.liftMotor.setPower(.9);
                 })
                 .addTemporalMarker(3, () -> {
                     drive.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -192,8 +193,8 @@ public class testRedCarousel extends LinearOpMode {
                         SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL * carouselApproachVelMultiplier, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .addTemporalMarker(.1, () -> {
-                    drive.intakeServo1.setPosition(.6); //vertical
-                    drive.intakeServo2.setPosition(.4); //vertical
+                    drive.intakeServo1.setPosition(.45); //vertical
+                    drive.intakeServo2.setPosition(.55); //vertical
                 })
                 .build();
 
@@ -201,7 +202,7 @@ public class testRedCarousel extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(parkX,parkY,Math.toRadians(parkAngle)),
                         SampleMecanumDrive.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .addTemporalMarker(.1, () -> {
+                .addTemporalMarker(.5, () -> {
                     drive.intakeServo1.setPosition(.6); //vertical
                     drive.intakeServo2.setPosition(.4); //vertical
                 })
