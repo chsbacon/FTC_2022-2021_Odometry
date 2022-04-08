@@ -29,9 +29,9 @@ public class testRedCarousel extends LinearOpMode {
     public static double shippingHubY = -37;
     public static double shippingHubAngle = -155;
 
-    public static double carouselX = -65;
-    public static double carouselY = -61.5;
-    public static double carouselAngle = -179;
+    public static double carouselX = -48;
+    public static double carouselY = -48;
+    public static double carouselAngle = -0;
     public static double carouselTanget = 0;
 
     public static double parkX = -68;
@@ -199,9 +199,9 @@ public class testRedCarousel extends LinearOpMode {
         drive.dropServo.setPosition(DS_RecPos);
         drive.followTrajectory(shippingHubTOCarousel);
 
-        drive.carouselMotor.setPower(-.2);
+        drive.carouselMotor.setPower(.2);
         ElapsedTime runtime = new ElapsedTime();
-        while ((runtime.milliseconds() < 2000) && opModeIsActive()){
+        while ((runtime.milliseconds() < 4000) && opModeIsActive()){
 
         }
         drive.carouselMotor.setPower(0);
