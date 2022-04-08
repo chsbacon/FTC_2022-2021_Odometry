@@ -42,9 +42,9 @@ public class testBlueWarehouse extends LinearOpMode {
 
 
     public  static int dumpSleep = 500;
-    public static int TOPHEIGHT = -3600; //4750 for 40
-    public static int MIDHEIGHT = -1750; //2500 for 40
-    public static int LOWHEIGHT = -750;
+    public static int TOPHEIGHT = -3200; //4750 for 40
+    public static int MIDHEIGHT = -1500; //2500 for 40
+    public static int LOWHEIGHT = -650;
 
 
 

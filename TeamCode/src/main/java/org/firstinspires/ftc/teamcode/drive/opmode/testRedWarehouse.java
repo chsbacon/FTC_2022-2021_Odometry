@@ -40,9 +40,9 @@ public class testRedWarehouse extends LinearOpMode {
     public static double warehouseTangent = 0;
 
     public  static int dumpSleep = 500;
-    public static int TOPHEIGHT = -3500; //4750 for 40
-    public static int MIDHEIGHT = -1750; //2500 for 40
-    public static int LOWHEIGHT = -750;
+    public static int TOPHEIGHT = -3200; //4750 for 40
+    public static int MIDHEIGHT = -1500; //2500 for 40
+    public static int LOWHEIGHT = -650;
 
     private OpenCvCamera webcam;
 

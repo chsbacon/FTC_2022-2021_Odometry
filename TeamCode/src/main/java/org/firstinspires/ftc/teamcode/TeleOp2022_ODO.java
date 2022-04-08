@@ -254,7 +254,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 
             double DS_RecPos = 1;
-            double DS_DumpPos = .8;
+            double DS_DumpPos = .7;
             if(gamepad1.y){
                 dropServo.setPosition(DS_DumpPos);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
