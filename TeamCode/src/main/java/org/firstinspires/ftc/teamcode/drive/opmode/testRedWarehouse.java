@@ -210,23 +210,23 @@ public class testRedWarehouse extends LinearOpMode {
 
         Trajectory warehouseTOstartReturn1 = drive.trajectoryBuilder(startReturnTOwarehouse1.end())
                 .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
-                 .addTemporalMarker(.1, () -> {
-                     drive.spintakeMotor.setPower(-.5);
-                     drive.intakeServo1.setPosition(.4); //dump
-                     drive.intakeServo2.setPosition(.6); //dump
-        })
-                .addTemporalMarker(1, () -> {
+                .addTemporalMarker(.1, () -> {
+                    drive.spintakeMotor.setPower(-.75);
+                })
+                .addTemporalMarker(.4, () -> {
+                    drive.intakeServo1.setPosition(.4); //dump
+                    drive.intakeServo2.setPosition(.6); //dump
                     drive.spintakeMotor.setPower(0);
                 })
                 .build();
         Trajectory warehouseTOstartReturn2 = drive.trajectoryBuilder(startReturnTOwarehouse2.end())
                 .lineToConstantHeading(new Vector2d(startReturnX,startReturnY))
                 .addTemporalMarker(.1, () -> {
-                    drive.spintakeMotor.setPower(-.5);
+                    drive.spintakeMotor.setPower(-.75);
+                })
+                .addTemporalMarker(.4, () -> {
                     drive.intakeServo1.setPosition(.4); //dump
                     drive.intakeServo2.setPosition(.6); //dump
-                })
-                .addTemporalMarker(1, () -> {
                     drive.spintakeMotor.setPower(0);
                 })
                 .build();
