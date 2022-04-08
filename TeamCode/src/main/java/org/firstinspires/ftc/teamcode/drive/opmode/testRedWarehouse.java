@@ -42,7 +42,7 @@ public class testRedWarehouse extends LinearOpMode {
 
     public  static int dumpSleep = 500;
     public static int TOPHEIGHT = -3200; //4750 for 40
-    public static int MIDHEIGHT = -1750; //2500 for 40
+    public static int MIDHEIGHT = -1850; //2500 for 40
     public static int LOWHEIGHT = -650;
 
     private OpenCvCamera webcam;
@@ -190,7 +190,7 @@ public class testRedWarehouse extends LinearOpMode {
                 })
                 .build();
         Trajectory startReturnTOwarehouse2 = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(warehouseX+3,warehouseY))
+                .lineToConstantHeading(new Vector2d(warehouseX+5,warehouseY))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground
                     drive.intakeServo2.setPosition(0); //ground
@@ -215,7 +215,7 @@ public class testRedWarehouse extends LinearOpMode {
                      drive.intakeServo1.setPosition(.4); //dump
                      drive.intakeServo2.setPosition(.6); //dump
         })
-                .addTemporalMarker(.5, () -> {
+                .addTemporalMarker(1, () -> {
                     drive.spintakeMotor.setPower(0);
                 })
                 .build();
@@ -226,7 +226,7 @@ public class testRedWarehouse extends LinearOpMode {
                     drive.intakeServo1.setPosition(.4); //dump
                     drive.intakeServo2.setPosition(.6); //dump
                 })
-                .addTemporalMarker(.5, () -> {
+                .addTemporalMarker(1, () -> {
                     drive.spintakeMotor.setPower(0);
                 })
                 .build();

@@ -94,7 +94,7 @@ public class testRedCarousel extends LinearOpMode {
 
 
         int TOPHEIGHT = -3200; //4750 for 40
-        int MIDHEIGHT = -1750; //2500 for 40
+        int MIDHEIGHT = -1850; //2500 for 40
         int LOWHEIGHT = -650;
         int LMtargetPosition = 0;
         while (!isStarted())

@@ -73,7 +73,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static double OMEGA_WEIGHT = 1;
 
     //
-    public static double myTIMEOUT = .5;
+    public static double myTIMEOUT = .4;
     //
 
     private TrajectorySequenceRunner trajectorySequenceRunner;
