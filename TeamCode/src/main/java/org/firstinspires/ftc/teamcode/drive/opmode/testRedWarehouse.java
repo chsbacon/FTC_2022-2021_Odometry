@@ -26,7 +26,7 @@ public class testRedWarehouse extends LinearOpMode {
 
     public static double shippingHubX = -6;
     public static double shippingHubY = -43.5;
-    public static double shippingHubAngle = -65;
+    public static double shippingHubAngle = -70;
     public static double shippingHubTangent = -135;
 
     public static double startReturnX = 10;
@@ -266,6 +266,8 @@ public class testRedWarehouse extends LinearOpMode {
 
         double DS_RecPos = 1;
         double DS_DumpPos = .6;
+
+        drive.capServo.setPosition(.25);
 
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);

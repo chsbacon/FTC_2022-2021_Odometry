@@ -99,6 +99,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public Servo dropServo = null;
     public Servo intakeServo1 = null;
     public Servo intakeServo2 = null;
+    public Servo capServo = null;
     //---
 
 
@@ -162,6 +163,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         dropServo = hardwareMap.get(Servo.class,"DS");
         intakeServo1 = hardwareMap.get(Servo.class,"IS1");
         intakeServo2 = hardwareMap.get(Servo.class,"IS2");
+        capServo = hardwareMap.get(Servo.class,"capServo");
         //---
 
         //---
@@ -174,6 +176,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         dropServo.setPosition(1);
         intakeServo1.setPosition(.4);
         intakeServo2.setPosition(.6);
+        capServo.setPosition(0);
         //---
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");

@@ -269,6 +269,8 @@ public class testBlueWarehouse extends LinearOpMode {
         double DS_RecPos = 1;
         double DS_DumpPos = .6;
 
+        drive.capServo.setPosition(.25);
+
         drive.followTrajectory(startTOshippingHub);
         drive.dropServo.setPosition(DS_DumpPos);
         sleep(dumpSleep);

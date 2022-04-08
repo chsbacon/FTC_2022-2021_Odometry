@@ -71,6 +71,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
     public Servo dropServo = null;
     public Servo intakeServo1 = null;
     public Servo intakeServo2 = null;
+    public Servo capServo = null;
 
 
 
@@ -96,6 +97,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
         dropServo = hardwareMap.get(Servo.class,"DS");
         intakeServo1 = hardwareMap.get(Servo.class,"IS1");
         intakeServo2 = hardwareMap.get(Servo.class,"IS2");
+        capServo = hardwareMap.get(Servo.class,"capServo");
 
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -266,20 +268,20 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 
 
-/*
-            if(gamepad1.b){
-                capServo.setPosition(1);
+
+            if(gamepad1.a){
+                capServo.setPosition(.25);
                 telemetry.addData("ServoPos: ", capServo.getPosition());
                 telemetry.update();
             }
-            else if(gamepad1.a){
-                capServo.setPosition(.5);
+            else if(gamepad1.b){
+                capServo.setPosition(.77);
                 telemetry.addData("ServoPos: ", capServo.getPosition());
                 telemetry.update();
             }
             else{
             }
-*/
+
 
 
 
