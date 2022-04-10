@@ -32,12 +32,12 @@ public class testBlueWarehouse extends LinearOpMode {
 
     public static double startReturnX = 0;
     public static double startReturnY = 62.5;
-    public static double startReturnAngle = 2;
+    public static double startReturnAngle = 3;
     public static double startReturnTanget = 45;
 
     public static double warehouseX = 30;
     public static double warehouseY = 63;
-    public static double warehouseAngle = 2;
+    public static double warehouseAngle = 3;
     public static double warehouseTangent = 0;
 
 
@@ -201,7 +201,7 @@ public class testBlueWarehouse extends LinearOpMode {
 
 
         Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(33,warehouseY))
+                .lineToConstantHeading(new Vector2d(35,warehouseY))
                 /*
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground

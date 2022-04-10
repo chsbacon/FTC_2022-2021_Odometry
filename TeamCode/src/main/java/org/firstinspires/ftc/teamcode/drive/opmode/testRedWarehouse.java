@@ -25,7 +25,7 @@ public class testRedWarehouse extends LinearOpMode {
     public static double initialAngle = -90;
 
     public static double shippingHubX = -6;
-    public static double shippingHubY = -42.75;
+    public static double shippingHubY = -43.45;
     public static double shippingHubAngle = -70;
     public static double shippingHubTangent = -135;
 
@@ -201,7 +201,7 @@ public class testRedWarehouse extends LinearOpMode {
 
 
         Trajectory startReturnTOwarehouseFinal = drive.trajectoryBuilder(shippingHubTOstartReturn.end())
-                .lineToConstantHeading(new Vector2d(39,warehouseY))
+                .lineToConstantHeading(new Vector2d(44,warehouseY))
                 .addTemporalMarker(.1, () -> {
                     drive.intakeServo1.setPosition(1); //ground
                     drive.intakeServo2.setPosition(0); //ground

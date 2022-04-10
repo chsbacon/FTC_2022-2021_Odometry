@@ -36,7 +36,7 @@ public class testRedCarousel extends LinearOpMode {
     public static double wallTangent = -179;
 
     public static double carouselX = -66;
-    public static double carouselY = -55.5;
+    public static double carouselY = -55.2;
     public static double carouselAngle = -90;
     public static double carouselTanget = 0;
 
@@ -45,7 +45,7 @@ public class testRedCarousel extends LinearOpMode {
     public static double parkAngle = -90;
 
     public  static int dumpSleep = 500;
-    public static double carouselApproachVelMultiplier = .004;
+    public static double carouselApproachVelMultiplier = .0042;
 
 
 
@@ -100,7 +100,7 @@ public class testRedCarousel extends LinearOpMode {
         });
 
 
-        int TOPHEIGHT = -3200; //4750 for 40
+        int TOPHEIGHT = -3250; //4750 for 40
         int MIDHEIGHT = -1850; //2500 for 40
         int LOWHEIGHT = -650;
         int LMtargetPosition = 0;
