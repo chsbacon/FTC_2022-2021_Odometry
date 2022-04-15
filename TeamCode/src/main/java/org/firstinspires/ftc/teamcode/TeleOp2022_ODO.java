@@ -153,7 +153,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
 
-
+        /*
         // Choosing the team color
         telemetry.addData("Gamepad1: Press X for Blue, B for Red", "");
         telemetry.update();
@@ -173,6 +173,7 @@ public class TeleOp2022_ODO extends LinearOpMode {
             pattern = RevBlinkinLedDriver.BlinkinPattern.RED;
             //blinkinLedDriver.setPattern(pattern);
         }
+         */
 
         androidSoundPool.initialize(SoundPlayer.getInstance());
 
@@ -284,6 +285,13 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 
 
+            if(gamepad1.x){
+                fastSlow = 2;
+            }
+            else{
+                fastSlow = 1;
+            }
+
 
             //GAMEPAD 2 ___________________________________________________________________________
             //intake servo
@@ -332,8 +340,8 @@ public class TeleOp2022_ODO extends LinearOpMode {
 
 
             if(gamepad2.y){
-                //carouselMotor.setPower(-.25);
-                carouselMotor.setPower(carouselPower);
+                carouselMotor.setPower(-.25);
+                //carouselMotor.setPower(carouselPower);
 
                 pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_OCEAN_PALETTE;
                 //blinkinLedDriver.setPattern(pattern);
